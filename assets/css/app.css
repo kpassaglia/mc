@@ -1,0 +1,45 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+body {
+    font-family: montserrat, arial, verdana !important;
+    color: #666;
+}
+
+
+.nameRow i {
+    visibility: hidden;
+}
+
+.nameRow:hover i {
+    visibility: visible;
+    padding: 0;
+}
+.nameRow:hover .icon {
+    padding: 0;
+}
+
+.nameRow:hover p {
+    border: solid;
+    border-width: 1px;
+    border-color: lightgray;
+}
+
+label{
+    font: bolder !important;
+    color:  #d41367;
+}
+
+.btn.btn-link{
+    color: #2C3E50!important;
+    font: bolder;
+}
+
+.btn.btn-primary{
+    background-color: #2C3E50!important;
+    border-color: #2C3E50!important;
+}
+
+h3 {
+    color: #2C3E50!important;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Mission Control</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/logo1.png">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- CSS Style Sheet -->
+    <link href="/assets/css/request.css" rel="stylesheet">
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+  <!-- Background Image -->
+    <style>
+        html {
+        height: 100%;
+        background-image: url("/assets/images/splash.jpg")
+    }</style>
+
+</head>
+
+<body>
+
+    <!-- MultiStep Form -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form id="msform">
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Basic Information</li>
+                    <li>Request Description</li>
+                    <li>Supporting Details</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset>
+                    <h2 class="fs-title">the basics</h2>
+                    <h3 class="fs-subtitle">Lets start with some context</h3>
+                    <input id="brand" type="text" placeholder="Brand" required />
+                    <input id="jobNumber" type="text"placeholder="Job Number" required />
+                    <input id="stakeholder" type="text" placeholder="Email" />
+                    <input type="button" name="next" class="next action-button" value="Next" />
+                </fieldset>
+                <fieldset>
+                    <h2 class="fs-title">the Request</h2>
+                    <h3 class="fs-subtitle">Help us undertand what you are looking for</h3>
+                    <textarea id="description" style="resize: none" rows= "8" type="text" placeholder="Description"></textarea>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                    <input type="button" name="next" class="next action-button" value="Next" />
+                </fieldset>
+                <fieldset>
+                    <h2 class="fs-title">The Details</h2>
+                    <h3 class="fs-subtitle">The more we know up front, the quicker we can turn your request around</h3>
+                    <input id="dueDate" type="date">
+                    <input id="resources" type="url" placeholder="Resource Link">
+                    <textarea id="notes" style="resize: none" rows= "4" type="text" placeholder="Additional Notes"></textarea>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                    <input id="submit-btn" type="button" name="next" class="next action-button" value="Submit" />
+                </fieldset>
+                <fieldset id="thanks"> 
+                    <h2 class="fs-title">Thanks!</h2>
+                    <h3 class="fs-subtitle">We received your resquest and will reach out if we have any more questions</h3>
+                    <input type="button" name="previous" class="previous action-button-previous" value="New Request"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sript References -->
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/javascript/requestAnimations.js"></script>
+    <script src="/assets/javascript/data.js"></script>
+</body>
+
+</html>

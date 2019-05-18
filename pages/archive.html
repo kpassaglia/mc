@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Mission Control</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/logo1.png">
+    <!-- CSS Reference -->
+
+    <!-- jQuery Reference-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap Reference-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <!-- Font Awesome Icon Reference -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- CSS Style Sheet -->
+    <link href="/assets/css/app.css" rel="stylesheet">
+    <!---Moment.JS Reference-->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- Metro 4 UI -->
+    <!-- <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script href="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> -->
+    <style>
+        body {
+            height: 100%;
+            background-image: url("/assets/images/colorbars.jpeg") !important;
+            background: black;
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            width: 80% !important;
+        }
+
+        .navbar {
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="/assets/images/ARS_logo_RocketBars.png" width="30" height="30" class="d-inline-block align-top"
+                alt="">
+            <span style="margin-left: 20px">Mission Control</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: space-between">
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Pages/home.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Console</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Archive</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Team
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/Pages/Views/as.html">Adam Samko</a>
+                        <a class="dropdown-item" href="/Pages/Views/bk.html">Bridget Kuglan</a>
+                        <a class="dropdown-item" href="/Pages/Views/jb.html">Joe Brodecki</a>
+                        <a class="dropdown-item" href="/Pages/Views/jl.html">Justin Lach</a>
+                        <a class="dropdown-item" href="/Pages/Views/kp.html">Kevin Passaglia</a>
+                        <a class="dropdown-item" href="/Pages/Views/kw.html">Kyle Wilson</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <form class="dropdown-menu p-4 dropdown-menu-right" style="width: 300px; background-color: #e9ecef">
+                        <div class="form-group">
+                            <label for="exampleDropdownFormEmail2">Email address</label>
+                            <input type="email" class="form-control" id="exampleDropdownFormEmail2"
+                                placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleDropdownFormPassword2">Password</label>
+                            <input type="password" class="form-control" id="exampleDropdownFormPassword2"
+                                placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                                <label class="form-check-label" for="dropdownCheck2">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <!-- Modal -->
+    <div id="reqModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+        aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" style="max-width: 75%">
+            <div class="modal-content">
+                <!-- MODAL HEADER -->
+                <div class="modal-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row nameRow">
+                                    <div class="col-md-6">
+                                        <h3 class="modalName" id="modalName">
+                                            <p>Name</p>
+                                        </h3>
+                                    </div>
+                                    <div class="col-md-4 icon">
+                                        <i class="far fa-edit"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 modalStatus">
+                                <span>Status</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- MODAL BODY -->
+                <!-- Main details -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="col-form-label"><i class="far fa-user"></i>
+                                        Owner</label>
+                                    <div class="modalOwner">
+                                        <p>Owner</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label"><i class="fas fa-list-ol"></i>
+                                        Priority</label>
+                                    <div class="modalPriority">
+                                        <p>Priority</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label"><i class="far fa-clock"></i>
+                                        Time Est</label>
+                                    <div class="modalEstTime">
+                                        <p>Time Est</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-form-label"><i class="far fa-calendar-check"></i>
+                                        Due Date</label>
+                                    <div class="modalDueDate">
+                                        <p>Due Date</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Extra Details -->
+                            <label class="col-form-label"><i class="far fa-file-alt"></i>
+                                Description</label>
+                            <div class="modalDescription">
+                                <p>Description</p>
+                            </div>
+
+                            <label class="col-form-label"><i class="fas fa-link"></i>
+                                Resources</label>
+                            <div class="modalResources">
+                                <a>Link</a>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label"> <i class="far fa-comment-alt"></i>
+                                    Add Comment</label>
+                                <textarea class="form-control" id="message-text" rows="4" style="resize:none"
+                                    placeholder="Write a comment..."></textarea>
+                                <br>
+                                <button type="button" class="btn btn-secondary">Save</button>
+                            </div>
+                            <div>
+                                <label for="message-text" class="col-form-label"><i class="far fa-sticky-note"></i>
+                                    Notes</label>
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Show All
+                                </button>
+                            </div>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body modalNotes">
+                                    <p>Notes</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Update Section -->
+                        <div class="col-md-3">
+                            <label class="col-form-label"> Update Request</label>
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Owner
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <select class="form-control">
+                                                <option>Adam Samko</option>
+                                                <option>Bridget Kuglan</option>
+                                                <option>Joe Brodecki</option>
+                                                <option>Justin Lach</option>
+                                                <option>Kevin Passaglia</option>
+                                                <option>Kyle Wilson</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                                Tag
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <select class="form-control">
+                                                <option>Analytics</option>
+                                                <option>Discovery</option>
+                                                <option>Media</option>
+                                                <option>Research</option>
+                                                <option>Content</option>
+                                                <option>Creative</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseThree" aria-expanded="false"
+                                                aria-controls="collapseThree">
+                                                Due Date
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <input id="dueDate" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <label for="message-text" class="col-form-label"><i class="fas fa-project-diagram"></i>
+                                Account Details</label>
+                            <div class="modalBrand">
+                                <p>Brand</p>
+                            </div>
+                            <div class="modalJobNumber">
+                                <p>Job Number</p>
+                            </div>
+
+                            <div class="modalStakeholder">
+                                <p>Stakeholder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="update" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Request Table -->
+    <div class="container" style="max-width: 1142px">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <table class="table table-hover table-responsive">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="d-none" scope="col">ID</th>
+                                        <th scope="col" style="width: 35%">Name</th>
+                                        <th scope="col" style="width: 10%">Owner</th>
+                                        <th scope="col" style="width: 10%">Status</th>
+                                        <th scope="col" style="width: 10%">Priority</th>
+                                        <th scope="col" style="width: 10%">Time Est.</th>
+                                        <th scope="col" style="width: 10%">Brand</th>
+                                        <th scope="col" style="width: 15%">Timeline</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <!-- JavaScript Reference -->
+    <script src="/assets/javascript/data.js"></script>
+</body>
+
+</html>
